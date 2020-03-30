@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun createPost(){
         val post = Post(userId = 24, title = "Post pertama", text = "Hello retrofit")
 
+//        Penulisan create data penggunaan hashmap
         val field = HashMap<String, String>()
         field.put("userId", "26")
         field.put("title", "Rafli the God of technology")

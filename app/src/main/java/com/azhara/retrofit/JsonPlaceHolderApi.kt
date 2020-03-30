@@ -32,6 +32,7 @@ interface JsonPlaceHolderApi {
                    @Field("body") text: String
     ): Call<Post>
 
+//    Create data menggunakan Hashmap yang berisi key & value
     @FormUrlEncoded
     @POST("posts")
     fun createPost(@FieldMap field: Map<String, String>): Call<Post>
