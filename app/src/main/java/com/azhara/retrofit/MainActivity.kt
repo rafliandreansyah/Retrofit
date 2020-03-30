@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,9 +23,17 @@ class MainActivity : AppCompatActivity() {
 
         val gson = GsonBuilder().serializeNulls().create() // Membolehkan memasukan data null pada patch
 
+        val loggingHttp = HttpLoggingInterceptor()
+        loggingHttp.setLevel(HttpLoggingInterceptor.Level.BODY)
+
+        val httpClient = OkHttpClient.Builder()
+            .addInterceptor(loggingHttp)
+            .build()
+
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(httpClient)
             .build()
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi::class.java)
@@ -34,14 +44,32 @@ class MainActivity : AppCompatActivity() {
 //        createPost()
 
         putandPatcbData()
+//        delete()
 
+    }
+
+    private fun delete(){
+        val delete = jsonPlaceHolderApi.delete(24)
+
+        delete.enqueue(object : Callback<Unit>{
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                text_result.text = t.message
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                val result = response.code()
+                text_result.text = result.toString()
+            }
+
+        })
     }
 
     private fun putandPatcbData(){
         val post = Post(12, title=null, text = null)
         val put:Call<Post> = jsonPlaceHolderApi.putPost(4, post)
 
-        val patch: Call<Post> = jsonPlaceHolderApi.patchPost(8, post) // Pada patch jika bernilai null maka akan mengambil data yang lama dan tidak mengubahnya menjadi null
+        val patch: Call<Post> = jsonPlaceHolderApi.patchPost("Patch",8, post) // Pada patch jika bernilai null maka akan mengambil data yang lama dan tidak mengubahnya menjadi null
 
         patch.enqueue(object : Callback<Post>{
             override fun onFailure(call: Call<Post>, t: Throwable) {

@@ -49,7 +49,10 @@ interface JsonPlaceHolderApi {
     fun putPost(@Path("id") id: Int?, @Body post: Post): Call<Post>
 
 //    Patch retrofit
+    @Headers("Headers: Patch")
     @PATCH("posts/{id}")
-    fun patchPost(@Path("id") id: Int?, @Body post: Post): Call<Post>
+    fun patchPost(@Header("Header") header: String, @Path("id") id: Int?, @Body post: Post): Call<Post>
 
+    @DELETE("posts/{id}")
+    fun delete(@Path("id") id: Int?): Call<Unit>
 }
