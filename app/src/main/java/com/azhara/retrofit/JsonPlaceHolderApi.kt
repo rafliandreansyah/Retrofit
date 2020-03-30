@@ -36,4 +36,7 @@ interface JsonPlaceHolderApi {
     @FormUrlEncoded
     @POST("posts")
     fun createPost(@FieldMap field: Map<String, String>): Call<Post>
+
+    @PUT("posts/{id}")
+    fun putPost(@Path("id") id: Int?)
 }
