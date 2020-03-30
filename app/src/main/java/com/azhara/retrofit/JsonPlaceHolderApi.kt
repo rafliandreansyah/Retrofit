@@ -46,10 +46,10 @@ interface JsonPlaceHolderApi {
 **/
 //    Put retrofit
     @PUT("posts/{id}")
-    fun putPost(@Path("id") id: Int?)
+    fun putPost(@Path("id") id: Int?, @Body post: Post): Call<Post>
 
 //    Patch retrofit
     @PATCH("posts/{id}")
-    fun patchPost(@Path("id") id: Int?)
+    fun patchPost(@Path("id") id: Int?, @Body post: Post): Call<Post>
 
 }
