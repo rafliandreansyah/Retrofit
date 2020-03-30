@@ -14,6 +14,7 @@ interface JsonPlaceHolderApi {
     @GET("posts")
     fun getPostByUserId(@Query("userId") userId: Int): Call<List<Post>>
 
+//    Pengambilan data dapat penggunakan Path dimana penulisan pada @Get diikuti {value} dan menggunakan  @Path parameter sesuai dengan {value} pada @Get
     @GET("posts/{idPost}/comments") //Get path by postId
     fun getComments(@Path("idPost") postId: Int): Call<List<Comment>>
 
