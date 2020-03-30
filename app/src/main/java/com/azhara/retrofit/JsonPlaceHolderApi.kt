@@ -37,6 +37,8 @@ interface JsonPlaceHolderApi {
     @POST("posts")
     fun createPost(@FieldMap field: Map<String, String>): Call<Post>
 
+//    Put retrofit
     @PUT("posts/{id}")
     fun putPost(@Path("id") id: Int?)
+
 }
