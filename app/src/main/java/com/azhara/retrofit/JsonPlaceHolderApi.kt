@@ -24,6 +24,7 @@ interface JsonPlaceHolderApi {
     fun createPost(@Body post: Post): Call<Post>
 
 
+//    create data menggunakan  Field dan Form Url encode, secara otomatis retrofit akan menuliskan url berdasarkan field pada parameter
     @FormUrlEncoded
     @POST("posts")
     fun createPost(@Field("userId") userId: Int,
