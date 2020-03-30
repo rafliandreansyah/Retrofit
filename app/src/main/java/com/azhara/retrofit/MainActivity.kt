@@ -27,8 +27,37 @@ class MainActivity : AppCompatActivity() {
 //        getPost()
 //        getPostsById(3)
 //        getComment(4)
-        createPost()
+//        createPost()
 
+        putandPatcbData()
+
+    }
+
+    private fun putandPatcbData(){
+        val post = Post(12, title=null, text = null)
+        val put:Call<Post> = jsonPlaceHolderApi.putPost(4, post)
+
+        val patch: Call<Post> = jsonPlaceHolderApi.patchPost(8, post) // Pada patch jika bernilai null maka akan mengambil data yang lama dan tidak mengubahnya menjadi null
+
+        patch.enqueue(object : Callback<Post>{
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                val createPost = response.body()
+
+                var content = ""
+                content += "Code Status: ${response.code()} \n"
+                content += "userId: ${createPost?.userId} \n"
+                content += "id: ${createPost?.id}\n"
+                content += "title: ${createPost?.title} \n"
+                content += "text: ${createPost?.text} \n"
+
+                text_result.text = content
+            }
+
+        })
     }
 
     private fun createPost(){
