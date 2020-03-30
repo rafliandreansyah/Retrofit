@@ -5,6 +5,7 @@ import retrofit2.http.*
 
 interface JsonPlaceHolderApi {
 
+    // Melakukan pengambilan data
     @GET("posts")
     fun getPost(): Call<List<Post>>
 
@@ -16,6 +17,7 @@ interface JsonPlaceHolderApi {
 
     @POST("posts")
     fun createPost(@Body post: Post): Call<Post>
+
 
     @FormUrlEncoded
     @POST("posts")
