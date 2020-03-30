@@ -9,6 +9,8 @@ interface JsonPlaceHolderApi {
     @GET("posts")
     fun getPost(): Call<List<Post>>
 
+
+//    Get by UserId menggunakan query
     @GET("posts")
     fun getPostByUserId(@Query("userId") userId: Int): Call<List<Post>>
 
